@@ -51,7 +51,7 @@ class _loginpageState extends State<loginpage> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(255, 192, 155, 237), // Purple
+              Color.fromARGB(255, 89, 70, 113), // Purple
               Color.fromARGB(255, 161, 190, 233), // Blue
               Color.fromARGB(255, 208, 132, 225), // Black
             ],
@@ -65,19 +65,23 @@ class _loginpageState extends State<loginpage> {
                 children: [
                   const SizedBox(height: 10),
 
-                  Image.asset(
-                    "lib/assets/imagesdiary1.jpg",
-                    width: double.infinity,
-                    height: 280,
-                    fit: BoxFit.cover,
+                  Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Text('PAPERS HAS MORE PATIENCE THAN PEOPLE',
+                    style: TextStyle(
+                      fontSize: 46,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(0, 36, 217, 0.848)
+                    ),),
                   ),
 
                   const SizedBox(height: 10),
 
                   Text(
-                    "Welcome dude!!",
+                    "Welcome dear!!",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: const Color.fromARGB(255, 0, 0, 0),
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
                     ),
@@ -90,7 +94,7 @@ class _loginpageState extends State<loginpage> {
                         'Login Here',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Colors.green,
+                          color: const Color.fromARGB(255, 255, 0, 149),
                           fontStyle: FontStyle.italic,
                         ),
                       ),
@@ -105,7 +109,8 @@ class _loginpageState extends State<loginpage> {
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         icon: Icon(Icons.mail, color: Colors.white),
-                        hintText: 'Email ID',
+                        labelText: 'Email ID',
+                        hintText: 'name@gmail.com',
                         hintStyle: TextStyle(color: Colors.white70),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -132,7 +137,8 @@ class _loginpageState extends State<loginpage> {
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         icon: Icon(Icons.password, color: Colors.white),
-                        hintText: 'Password',
+                        labelText: 'Password',
+                        hintText: '!@#name',
                         hintStyle: TextStyle(color: Colors.white70),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -168,7 +174,7 @@ class _loginpageState extends State<loginpage> {
                       child: Ink(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Colors.purple, Colors.blue, Colors.indigo],
+                            colors: [const Color.fromARGB(255, 162, 72, 178), const Color.fromARGB(255, 130, 171, 204), const Color.fromARGB(255, 108, 118, 178)],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                           ),
@@ -204,7 +210,7 @@ class _loginpageState extends State<loginpage> {
                         child: Center(
                           child: Text(
                             'Do not have any account -> Sign-up',
-                            style: TextStyle(color: Colors.white, fontSize: 16),
+                            style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontSize: 16),
                           ),
                         ),
                       ),

@@ -64,11 +64,15 @@ class _SignupPageState extends State<SignupPage> {
                 children: [
                   const SizedBox(height: 10),
 
-                  Image.asset(
-                    "lib/assets/imagesdiary1.jpg",
-                    width: double.infinity,
-                    height: 280,
-                    fit: BoxFit.cover,
+                  Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Text('PAPERS HAS MORE PATIENCE THAN PEOPLE',
+                    style: TextStyle(
+                      fontSize: 46,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(0, 36, 217, 0.848)
+                    ),),
                   ),
 
                   const SizedBox(height: 10),
@@ -102,6 +106,7 @@ class _SignupPageState extends State<SignupPage> {
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         icon: Icon(Icons.person, color: Colors.white),
+                        labelText: 'Name',
                         hintText: 'Name',
                         hintStyle: TextStyle(color: Colors.white70),
                         enabledBorder: OutlineInputBorder(
@@ -129,7 +134,8 @@ class _SignupPageState extends State<SignupPage> {
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         icon: Icon(Icons.mail, color: Colors.white),
-                        hintText: 'Email ID',
+                        labelText: 'Email ID',
+                        hintText: 'name@gmail.com',
                         hintStyle: TextStyle(color: Colors.white70),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -156,6 +162,7 @@ class _SignupPageState extends State<SignupPage> {
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         icon: Icon(Icons.password, color: Colors.white),
+                        labelText: 'Password',
                         hintText: 'Password',
                         hintStyle: TextStyle(color: Colors.white70),
                         enabledBorder: OutlineInputBorder(
@@ -182,6 +189,7 @@ class _SignupPageState extends State<SignupPage> {
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         icon: Icon(Icons.password, color: Colors.white),
+                        labelText: 'password',
                         hintText: 'Confirm Password',
                         hintStyle: TextStyle(color: Colors.white70),
                         enabledBorder: OutlineInputBorder(
@@ -217,7 +225,7 @@ class _SignupPageState extends State<SignupPage> {
                       child: Ink(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Colors.purple, Colors.blue, Colors.indigo],
+                            colors: [const Color.fromARGB(255, 162, 72, 178), const Color.fromARGB(255, 130, 171, 204), const Color.fromARGB(255, 108, 118, 178)],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                           ),

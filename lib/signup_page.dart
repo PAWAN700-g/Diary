@@ -42,9 +42,11 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Container(
         width: double.infinity,
         height: double.infinity,
+       
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -61,6 +63,7 @@ class _SignupPageState extends State<SignupPage> {
             child: Padding(
               padding: const EdgeInsets.all(0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 10),
 
@@ -78,9 +81,9 @@ class _SignupPageState extends State<SignupPage> {
                   const SizedBox(height: 10),
 
                   Text(
-                    "Welcome dude!!",
+                    "Hey my Dear!!",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: const Color.fromARGB(255, 0, 0, 0),
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
                     ),
@@ -121,9 +124,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderRadius: BorderRadius.all(Radius.circular(60)),
                         ),
                       ),
-                      keyboardType: TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
+                      
                     ),
                   ),
                   Padding(
@@ -149,9 +150,8 @@ class _SignupPageState extends State<SignupPage> {
                           borderRadius: BorderRadius.all(Radius.circular(60)),
                         ),
                       ),
-                      keyboardType: TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
+                      
+                      
                     ),
                   ),
                   Padding(
@@ -177,9 +177,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderRadius: BorderRadius.all(Radius.circular(60)),
                         ),
                       ),
-                      keyboardType: TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
+                      
                     ),
                   ),
                   Padding(
@@ -204,9 +202,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderRadius: BorderRadius.all(Radius.circular(60)),
                         ),
                       ),
-                      keyboardType: TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
+                     
                     ),
                   ),
                   SizedBox(
@@ -254,9 +250,14 @@ class _SignupPageState extends State<SignupPage> {
                     alignment: AlignmentGeometry.bottomRight,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'already have an account login...',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          'already have an account login...',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
                       ),
                     ),
                   ),

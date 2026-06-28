@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,10 +27,13 @@ class _loginpageState extends State<loginpage> {
         email: emailcontroller.text.trim(),
         password: passwordcontroller.text.trim(),
       );
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreeN()));
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("User login successfully")),
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreeN()),
       );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("User login successfully")));
       print(UserCredential);
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(
@@ -51,9 +53,8 @@ class _loginpageState extends State<loginpage> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color.fromARGB(255, 89, 70, 113), // Purple
-              Color.fromARGB(255, 161, 190, 233), // Blue
-              Color.fromARGB(255, 208, 132, 225), // Black
+              Color.fromARGB(255, 229, 175, 231), // Off White
+              Color.fromARGB(255, 194, 109, 188), // Black
             ],
           ),
         ),
@@ -62,27 +63,30 @@ class _loginpageState extends State<loginpage> {
             child: Padding(
               padding: const EdgeInsets.all(0),
               child: Column(
-                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
 
                   Padding(
                     padding: const EdgeInsets.all(14.0),
-                    child: Text('PAPERS HAS MORE PATIENCE THAN PEOPLE',
-                    style: TextStyle(
-                      fontSize: 46,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(0, 36, 217, 0.848)
-                    ),),
+                    child: Text(
+                      'PAPER HAS MORE PATIENCE THAN PEOPLE',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 46,
+                        fontStyle: FontStyle.italic,
+
+                        color: Color(0xFF475569),
+                      ),
+                    ),
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
 
                   Text(
                     "Welcome dear!!",
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 0, 0, 0),
+                      color: Color(0xFF1E3A8A),
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
                     ),
@@ -95,38 +99,42 @@ class _loginpageState extends State<loginpage> {
                         'Login Here',
                         style: TextStyle(
                           fontSize: 20,
-                          color: const Color.fromARGB(255, 255, 0, 149),
+                          color: Color(0xFF64748B),
                           fontStyle: FontStyle.italic,
                         ),
                       ),
                     ),
                   ),
-                  
+
                   Padding(
                     padding: const EdgeInsets.all(14.0),
                     child: TextField(
                       controller: emailcontroller,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Color(0xFF1E293B)),
                       decoration: InputDecoration(
-                        icon: Icon(Icons.mail, color: Colors.white),
-                        labelText: 'Email ID',
-                        hintText: 'name@gmail.com',
-                        hintStyle: TextStyle(color: Colors.white70),
+                        filled: true,
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(
+                          Icons.email_outlined,
+                          color: Color(0xFF6366F1),
+                        ),
+                        labelText: "Email",
+                        labelStyle: const TextStyle(color: Color(0xFF64748B)),
+                        hintText: "example@gmail.com",
+                        hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 72, 14, 222),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFCBD5E1),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 118, 150, 210),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF6366F1),
+                            width: 2,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(60)),
                         ),
-                      ),
-                      keyboardType: TextInputType.numberWithOptions(
-                        decimal: true,
                       ),
                     ),
                   ),
@@ -134,68 +142,56 @@ class _loginpageState extends State<loginpage> {
                     padding: const EdgeInsets.all(14.0),
                     child: TextField(
                       controller: passwordcontroller,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      obscureText: true,
+                      style: const TextStyle(color: Color(0xFF1E293B)),
                       decoration: InputDecoration(
-                        icon: Icon(Icons.password, color: Colors.white),
-                        labelText: 'Password',
-                        hintText: '!@#name',
-                        hintStyle: TextStyle(color: Colors.white70),
+                        filled: true,
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(
+                          Icons.lock_outline,
+                          color: Color(0xFF6366F1),
+                        ),
+                        labelText: "Password",
+                        labelStyle: const TextStyle(color: Color(0xFF64748B)),
+                        hintText: "Enter password",
+                        hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 72, 14, 222),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFCBD5E1),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 118, 150, 210),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF6366F1),
+                            width: 2,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(60)),
                         ),
-                      ),
-                      keyboardType: TextInputType.numberWithOptions(
-                        decimal: true,
                       ),
                     ),
                   ),
-                 
+
                   SizedBox(
-                    width: 255,
+                    width: 250,
                     height: 55,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await loginUserWithEmailAndPassword();
+                      },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        padding: EdgeInsets.zero,
+                        elevation: 3,
+                        backgroundColor: const Color(0xFF4F46E5),
+                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [const Color.fromARGB(255, 162, 72, 178), const Color.fromARGB(255, 130, 171, 204), const Color.fromARGB(255, 108, 118, 178)],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                              ),
-                            ),
-                            onTap: () async {
-                              await loginUserWithEmailAndPassword();
-                              
-                            },
-                          ),
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -206,12 +202,20 @@ class _loginpageState extends State<loginpage> {
                       padding: const EdgeInsets.all(14.0),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignupPage(),));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignupPage(),
+                            ),
+                          );
                         },
                         child: Center(
                           child: Text(
                             'Do not have any account -> Sign-up',
-                            style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontSize: 16),
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),

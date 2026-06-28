@@ -23,24 +23,24 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
   }
 
   Future<void> uploadTaskToDB() async {
-  try {
-    await FirebaseFirestore.instance
-        .collection("users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("diary")
-        .add({
-          "title": titleController.text.trim(),
-          "description": descriptionController.text.trim(),
-          "mood": moodController.text.trim(),
-          "date": FieldValue.serverTimestamp(),
-          "isFavourite": false,
-        });
+    try {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("diary")
+          .add({
+            "title": titleController.text.trim(),
+            "description": descriptionController.text.trim(),
+            "mood": moodController.text.trim(),
+            "date": FieldValue.serverTimestamp(),
+            "isFavourite": false,
+          });
 
-    print("Saved Successfully");
-  } catch (e) {
-    print("ERROR: $e");
+      print("Saved Successfully");
+    } catch (e) {
+      print("ERROR: $e");
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +98,10 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
               const SizedBox(width: 8),
               Text(
                 "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
-                style: const TextStyle(fontSize: 16,
-                fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

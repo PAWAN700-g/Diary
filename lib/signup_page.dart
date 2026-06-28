@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,11 +22,14 @@ class _SignupPageState extends State<SignupPage> {
 
   Future<void> createEmailAndPassword() async {
     try {
-       await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailcontroller.text.trim(),
         password: passwordcontroller.text.trim(),
       );
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreeN()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreeN()),
+      );
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("User created successfully")),
@@ -42,19 +44,17 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Container(
         width: double.infinity,
         height: double.infinity,
-       
+
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             colors: [
-              Color.fromARGB(255, 172, 111, 247), // Purple
-              Color.fromARGB(255, 131, 176, 243), // Blue
-              Color.fromARGB(255, 225, 168, 168), // Black
+              Color.fromARGB(255, 229, 175, 231), 
+              Color.fromARGB(255, 194, 109, 188), 
             ],
           ),
         ),
@@ -68,24 +68,25 @@ class _SignupPageState extends State<SignupPage> {
                   const SizedBox(height: 10),
 
                   Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: Text('PAPERS HAS MORE PATIENCE THAN PEOPLE',
-                    style: TextStyle(
-                      fontSize: 46,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(0, 36, 217, 0.848)
-                    ),),
+                    padding: const EdgeInsets.all(14),
+                    child: Text(
+                      "PAPER HAS MORE\nPATIENCE THAN\nPEOPLE",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 46,
+                        fontStyle: FontStyle.italic,
+                        
+                        color: Color(0xFF475569),
+                      ),
+                    ),
                   ),
-
                   const SizedBox(height: 10),
-
                   Text(
-                    "Hey my Dear!!",
+                    "Create Account",
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 36,
+                      fontSize: 34,
                       fontWeight: FontWeight.bold,
+                      color: Color(0xFF1E3A8A),
                     ),
                   ),
                   Align(
@@ -93,11 +94,10 @@ class _SignupPageState extends State<SignupPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'SignUp Here',
+                        "Join My Dear Diary",
                         style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontStyle: FontStyle.italic,
+                          fontSize: 17,
+                          color: Color(0xFF64748B),
                         ),
                       ),
                     ),
@@ -106,25 +106,39 @@ class _SignupPageState extends State<SignupPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
                       decoration: InputDecoration(
-                        icon: Icon(Icons.person, color: Colors.white),
-                        labelText: 'Name',
-                        hintText: 'Name',
-                        hintStyle: TextStyle(color: Colors.white70),
+                        filled: true,
+                        fillColor: Colors.white,
+
+                        prefixIcon: const Icon(
+                          Icons.person_outline,
+                          color: Color(0xFF6366F1),
+                        ),
+
+                        labelText: "Name",
+
+                        labelStyle: const TextStyle(color: Color(0xFF64748B)),
+
+                        hintText: "Enter your name",
+
+                        hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
+
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 72, 14, 222),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFCBD5E1),
                           ),
                         ),
+
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 118, 150, 210),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF6366F1),
+                            width: 2,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(60)),
                         ),
                       ),
-                      
                     ),
                   ),
                   Padding(
@@ -132,26 +146,39 @@ class _SignupPageState extends State<SignupPage> {
                     child: TextField(
                       controller: emailcontroller,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
                       decoration: InputDecoration(
-                        icon: Icon(Icons.mail, color: Colors.white),
-                        labelText: 'Email ID',
-                        hintText: 'name@gmail.com',
-                        hintStyle: TextStyle(color: Colors.white70),
+                        filled: true,
+                        fillColor: Colors.white,
+
+                        prefixIcon: Icon(
+                          Icons.email_outlined,
+                          color: Color(0xFF6366F1),
+                        ),
+
+                        labelText: "Email ID",
+
+                        labelStyle: const TextStyle(color: Color(0xFF64748B)),
+
+                        hintText: "Enter your Email ID",
+
+                        hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
+
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 72, 14, 222),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFCBD5E1),
                           ),
                         ),
+
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 118, 150, 210),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF6366F1),
+                            width: 2,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(60)),
                         ),
                       ),
-                      
-                      
                     ),
                   ),
                   Padding(
@@ -159,89 +186,61 @@ class _SignupPageState extends State<SignupPage> {
                     child: TextField(
                       controller: passwordcontroller,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
                       decoration: InputDecoration(
-                        icon: Icon(Icons.password, color: Colors.white),
-                        labelText: 'Password',
-                        hintText: 'Password',
-                        hintStyle: TextStyle(color: Colors.white70),
+                        filled: true,
+                        fillColor: Colors.white,
+
+                        prefixIcon: Icon(
+                          Icons.lock_outline,
+                          color: Color(0xFF6366F1),
+                        ),
+
+                        labelText: "Password",
+
+                        labelStyle: const TextStyle(color: Color(0xFF64748B)),
+
+                        hintText: "Enter your Password",
+
+                        hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
+
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 72, 14, 222),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFFCBD5E1),
                           ),
                         ),
+
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 118, 150, 210),
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF6366F1),
+                            width: 2,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(60)),
                         ),
                       ),
-                      
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        icon: Icon(Icons.password, color: Colors.white),
-                        labelText: 'password',
-                        hintText: 'Confirm Password',
-                        hintStyle: TextStyle(color: Colors.white70),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 72, 14, 222),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: const Color.fromARGB(255, 118, 150, 210),
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(60)),
-                        ),
-                      ),
-                     
                     ),
                   ),
                   SizedBox(
-                    width: 255,
+                    width: 250,
                     height: 55,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await createEmailAndPassword();
+                      },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        padding: EdgeInsets.zero,
+                        backgroundColor: const Color(0xFF4F46E5),
+                        foregroundColor: Colors.white,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [const Color.fromARGB(255, 162, 72, 178), const Color.fromARGB(255, 130, 171, 204), const Color.fromARGB(255, 108, 118, 178)],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                            child: const Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                              ),
-                            ),
-                            onTap: () async {
-                              await createEmailAndPassword();
-                              
-                            },
-                          ),
+                      child: const Text(
+                        "Create Account",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -254,9 +253,13 @@ class _SignupPageState extends State<SignupPage> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'already have an account login...',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        child: Center(
+                          child: Text(
+                            'already have an account login...',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white, fontSize: 16,
+                            ),
+                          ),
                         ),
                       ),
                     ),

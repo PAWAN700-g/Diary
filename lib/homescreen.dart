@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
 import 'diaryscreen.dart';
@@ -100,6 +101,8 @@ class _HomeScreeNState extends State<HomeScreeN> {
                             .doc(docId)
                             .update({"isFavourite": !diary["isFavourite"]});
                       },
+                      
+                      
                     );
                   },
                 );
@@ -110,7 +113,7 @@ class _HomeScreeNState extends State<HomeScreeN> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromRGBO(185, 58, 199, 1),
+        backgroundColor: const Color.fromARGB(255, 180, 52, 194),
         child: const Icon(Icons.add, color: Colors.white),
         onPressed: () {
           Navigator.push(

@@ -68,7 +68,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
-                        width: 200,
+                        width: 250,
                         child: TextField(
                           controller: moodController,
 
@@ -77,7 +77,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                           decoration: InputDecoration(
                             labelText: "Mood",
                             labelStyle: TextStyle(),
-                            hintText: "😊",
+                            hintText: "😊only emoji",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -156,15 +156,18 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("Diary saved successfully")),
                 );
+                Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromRGBO(185, 58, 199, 1),
                 padding: const EdgeInsets.symmetric(vertical: 15),
               ),
-              child: const Text(
-                "Save Entry",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
+              
+                child: const Text(
+                  "Save Entry",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+              
             ),
           ),
         ],

@@ -13,6 +13,9 @@ class HomeScreeN extends StatefulWidget {
 }
 
 class _HomeScreeNState extends State<HomeScreeN> {
+  TextEditingController searchController = TextEditingController();
+  String searchText = "";
+
   bool favourite1 = false;
   bool favourite2 = true;
 
@@ -42,6 +45,13 @@ class _HomeScreeNState extends State<HomeScreeN> {
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
+              controller: searchController,
+              onChanged: (value) {
+                setState(() {
+                  searchText = value.toLowerCase();
+                });
+              },
+
               decoration: InputDecoration(
                 hintText: "Search your memories...",
                 prefixIcon: const Icon(Icons.search),
@@ -72,7 +82,20 @@ class _HomeScreeNState extends State<HomeScreeN> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 print(snapshot.data?.docs.length);
-                final docs = snapshot.data!.docs;
+                final allDocs = snapshot.data!.docs;
+
+                final docs = allDocs.where((doc) {
+                  final title = doc["title"].toString().toLowerCase();
+                  final description = doc["description"]
+                      .toString()
+                      .toLowerCase();
+
+                  return title.contains(searchText) ||
+                      description.contains(searchText);
+                }).toList();
+                if (docs.isEmpty) {
+                  return const Center(child: Text("No matching diary found"));
+                }
 
                 if (docs.isEmpty) {
                   return const Center(child: Text("No diary entries yet"));
@@ -101,8 +124,6 @@ class _HomeScreeNState extends State<HomeScreeN> {
                             .doc(docId)
                             .update({"isFavourite": !diary["isFavourite"]});
                       },
-                      
-                      
                     );
                   },
                 );

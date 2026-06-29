@@ -26,9 +26,10 @@ class _SignupPageState extends State<SignupPage> {
         email: emailcontroller.text.trim(),
         password: passwordcontroller.text.trim(),
       );
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreeN()),
+        MaterialPageRoute(builder: (context) => const HomeScreeN()),
+        (route) => false,
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -49,15 +50,9 @@ class _SignupPageState extends State<SignupPage> {
         height: double.infinity,
 
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 229, 175, 231), 
-              Color.fromARGB(255, 194, 109, 188), 
-            ],
-          ),
+          color: Color.fromARGB(255, 219, 188, 224),
         ),
+
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -75,7 +70,7 @@ class _SignupPageState extends State<SignupPage> {
                       style: TextStyle(
                         fontSize: 46,
                         fontStyle: FontStyle.italic,
-                        
+
                         color: Color(0xFF475569),
                       ),
                     ),
@@ -106,7 +101,9 @@ class _SignupPageState extends State<SignupPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                      ),
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -146,7 +143,9 @@ class _SignupPageState extends State<SignupPage> {
                     child: TextField(
                       controller: emailcontroller,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                      ),
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -186,7 +185,9 @@ class _SignupPageState extends State<SignupPage> {
                     child: TextField(
                       controller: passwordcontroller,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                      ),
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -229,7 +230,7 @@ class _SignupPageState extends State<SignupPage> {
                         await createEmailAndPassword();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4F46E5),
+                        backgroundColor: Color.fromRGBO(185, 58, 199, 1),
                         foregroundColor: Colors.white,
                         elevation: 3,
                         shape: RoundedRectangleBorder(
@@ -257,7 +258,9 @@ class _SignupPageState extends State<SignupPage> {
                           child: Text(
                             'already have an account login...',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white, fontSize: 16,
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              fontSize: 16,
                             ),
                           ),
                         ),

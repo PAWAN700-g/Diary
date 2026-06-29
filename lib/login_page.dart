@@ -49,14 +49,9 @@ class _loginpageState extends State<loginpage> {
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color.fromARGB(255, 229, 175, 231), // Off White
-              Color.fromARGB(255, 194, 109, 188), // Black
-            ],
-          ),
+           color: 
+               Color.fromARGB(255, 219, 188, 224),
+          
         ),
         child: SafeArea(
           child: SingleChildScrollView(
@@ -181,7 +176,7 @@ class _loginpageState extends State<loginpage> {
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 3,
-                        backgroundColor: const Color(0xFF4F46E5),
+                        backgroundColor: Color.fromRGBO(185, 58, 199, 1),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),

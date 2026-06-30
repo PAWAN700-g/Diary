@@ -115,6 +115,14 @@ class _HomeScreeNState extends State<HomeScreeN> {
                           .toString()
                           .split(" ")[0],
                       isFavourite: diary["isFavourite"],
+                      onDelete:()async {
+                          await FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .collection("diary")
+                          .doc(docId)
+                          .delete();
+                      },
                       onFavoritePressed: () async {
                         await FirebaseFirestore.instance
                             .collection("users")

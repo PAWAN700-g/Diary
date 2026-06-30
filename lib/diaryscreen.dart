@@ -162,12 +162,11 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                 backgroundColor: const Color.fromRGBO(185, 58, 199, 1),
                 padding: const EdgeInsets.symmetric(vertical: 15),
               ),
-              
-                child: const Text(
-                  "Save Entry",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              
+
+              child: const Text(
+                "Save Entry",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
             ),
           ),
         ],
@@ -184,6 +183,7 @@ class DiaryCard extends StatelessWidget {
   final bool isFavourite;
   final VoidCallback? onTap;
   final VoidCallback? onFavoritePressed;
+  final VoidCallback? onDelete;
 
   const DiaryCard({
     super.key,
@@ -194,6 +194,7 @@ class DiaryCard extends StatelessWidget {
     required this.isFavourite,
     this.onTap,
     this.onFavoritePressed,
+    this.onDelete,
   });
 
   @override
@@ -250,8 +251,20 @@ class DiaryCard extends StatelessWidget {
                   const Icon(Icons.calendar_today, size: 18),
                   const SizedBox(width: 6),
                   Text(date),
+                  const Spacer(flex: 23),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      onPressed: onDelete,
+                    ),
+                  ),
                 ],
               ),
+              const SizedBox(height: 10),
             ],
           ),
         ),

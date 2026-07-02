@@ -50,126 +50,132 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
         title: const Text("How its Going Dear"),
         backgroundColor: const Color.fromRGBO(185, 58, 199, 1),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(14.0),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-
-              child: Center(
-                child: Column(
-                  children: [
-                    const Text(
-                      'How are you feeling today?',
-                      style: TextStyle(fontSize: 20),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 250,
-                        child: TextField(
-                          controller: moodController,
-
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 22),
-                          decoration: InputDecoration(
-                            labelText: "Mood",
-                            labelStyle: TextStyle(),
-                            hintText: "😊only emoji",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
+      body: SafeArea(
+        child: SingleChildScrollView(
+           padding: const EdgeInsets.fromLTRB(16, 16, 16, 90),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+          
+                  child: Center(
+                    child: Column(
+                      children: [
+                        const Text(
+                          'How are you feeling today?',
+                          style: TextStyle(fontSize: 20),
+                        ),
+          
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 250,
+                            child: TextField(
+                              controller: moodController,
+          
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(fontSize: 22),
+                              decoration: InputDecoration(
+                                labelText: "Mood",
+                                labelStyle: TextStyle(),
+                                hintText: "😊only emoji",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.calendar_today, size: 20),
-              const SizedBox(width: 8),
-              Text(
-                "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+          
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.calendar_today, size: 20),
+                  const SizedBox(width: 8),
+                  Text(
+                    "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                    hintText: 'add title to your memory',
+                    prefixIcon: Icon(Icons.title),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ),
+          
+              const SizedBox(height: 20),
+          
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: TextField(
+                  controller: descriptionController,
+                  maxLines: 7,
+                  decoration: InputDecoration(
+                    labelText: "Description",
+                    hintText: "Write about your day...",
+                    alignLabelWithHint: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ),
+          
+              const SizedBox(height: 20),
+          
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    print(titleController.text);
+                    print(descriptionController.text);
+                    print(moodController.text);
+          
+                    await uploadTaskToDB();
+                    titleController.clear();
+                    descriptionController.clear();
+                    moodController.clear();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Diary saved successfully")),
+                    );
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromRGBO(185, 58, 199, 1),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                  ),
+          
+                  child: const Text(
+                    "Save Entry",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                labelText: 'Title',
-                hintText: 'add title to your memory',
-                prefixIcon: Icon(Icons.title),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 20),
-
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              controller: descriptionController,
-              maxLines: 12,
-              decoration: InputDecoration(
-                labelText: "Description 420 words",
-                hintText: "Write about your day...",
-                alignLabelWithHint: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 20),
-
-          SizedBox(
-            width: 200,
-            child: ElevatedButton(
-              onPressed: () async {
-                print(titleController.text);
-                print(descriptionController.text);
-                print(moodController.text);
-
-                await uploadTaskToDB();
-                titleController.clear();
-                descriptionController.clear();
-                moodController.clear();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Diary saved successfully")),
-                );
-                Navigator.pop(context);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromRGBO(185, 58, 199, 1),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-              ),
-
-              child: const Text(
-                "Save Entry",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

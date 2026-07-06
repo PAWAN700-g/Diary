@@ -52,7 +52,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-           padding: const EdgeInsets.fromLTRB(16, 16, 16, 90),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 90),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -60,7 +60,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                 padding: const EdgeInsets.all(14.0),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-          
+
                   child: Center(
                     child: Column(
                       children: [
@@ -68,14 +68,14 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                           'How are you feeling today?',
                           style: TextStyle(fontSize: 20),
                         ),
-          
+
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
                             width: 250,
                             child: TextField(
                               controller: moodController,
-          
+
                               textAlign: TextAlign.center,
                               style: const TextStyle(fontSize: 22),
                               decoration: InputDecoration(
@@ -94,7 +94,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                   ),
                 ),
               ),
-          
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -124,9 +124,9 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                   ),
                 ),
               ),
-          
+
               const SizedBox(height: 20),
-          
+
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: TextField(
@@ -142,9 +142,9 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                   ),
                 ),
               ),
-          
+
               const SizedBox(height: 20),
-          
+
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
@@ -152,7 +152,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                     print(titleController.text);
                     print(descriptionController.text);
                     print(moodController.text);
-          
+
                     await uploadTaskToDB();
                     titleController.clear();
                     descriptionController.clear();
@@ -166,7 +166,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                     backgroundColor: const Color.fromRGBO(185, 58, 199, 1),
                     padding: const EdgeInsets.symmetric(vertical: 15),
                   ),
-          
+
                   child: const Text(
                     "Save Entry",
                     style: TextStyle(color: Colors.white, fontSize: 18),
@@ -176,7 +176,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
             ],
           ),
         ),
-      ),
+      ),  
     );
   }
 }

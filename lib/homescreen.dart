@@ -39,107 +39,117 @@ class _HomeScreeNState extends State<HomeScreeN> {
         ],
       ),
 
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: TextField(
-              controller: searchController,
-              onChanged: (value) {
-                setState(() {
-                  searchText = value.toLowerCase();
-                });
-              },
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
 
-              decoration: InputDecoration(
-                hintText: "Search your memories...",
-                prefixIcon: const Icon(Icons.search),
-                filled: true,
-                fillColor: Colors.grey.shade200,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("lib/assets/bgimage.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: TextField(
+                controller: searchController,
+                onChanged: (value) {
+                  setState(() {
+                    searchText = value.toLowerCase();
+                  });
+                },
+
+                decoration: InputDecoration(
+                  hintText: "Search your memories...",
+                  prefixIcon: const Icon(Icons.search),
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
             ),
-          ),
 
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection("users")
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .collection("diary")
-                  .orderBy("date", descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                }
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection("diary")
+                    .orderBy("date", descending: true)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(child: Text(snapshot.error.toString()));
+                  }
 
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                print(snapshot.data?.docs.length);
-                final allDocs = snapshot.data!.docs;
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  print(snapshot.data?.docs.length);
+                  final allDocs = snapshot.data!.docs;
 
-                final docs = allDocs.where((doc) {
-                  final title = doc["title"].toString().toLowerCase();
-                  final description = doc["description"]
-                      .toString()
-                      .toLowerCase();
+                  final docs = allDocs.where((doc) {
+                    final title = doc["title"].toString().toLowerCase();
+                    final description = doc["description"]
+                        .toString()
+                        .toLowerCase();
 
-                  return title.contains(searchText) ||
-                      description.contains(searchText);
-                }).toList();
-                if (docs.isEmpty) {
-                  return const Center(child: Text("No matching diary found"));
-                }
+                    return title.contains(searchText) ||
+                        description.contains(searchText);
+                  }).toList();
+                  if (docs.isEmpty) {
+                    return const Center(child: Text("No matching diary found"));
+                  }
 
-                if (docs.isEmpty) {
-                  return const Center(child: Text("No diary entries yet"));
-                }
+                  if (docs.isEmpty) {
+                    return const Center(child: Text("No diary entries yet"));
+                  }
 
-                return ListView.builder(
-                  itemCount: docs.length,
+                  return ListView.builder(
+                    itemCount: docs.length,
 
-                  itemBuilder: (context, index) {
-                    final diary = docs[index];
-                    final docId = diary.id;
-                    return DiaryCard(
-                      title: diary["title"],
-                      description: diary["description"],
-                      mood: diary["mood"],
-                      date: (diary["date"] as Timestamp)
-                          .toDate()
-                          .toString()
-                          .split(" ")[0],
-                      isFavourite: diary["isFavourite"],
-                      onDelete:()async {
+                    itemBuilder: (context, index) {
+                      final diary = docs[index];
+                      final docId = diary.id;
+                      return DiaryCard(
+                        title: diary["title"],
+                        description: diary["description"],
+                        mood: diary["mood"],
+                        date: (diary["date"] as Timestamp)
+                            .toDate()
+                            .toString()
+                            .split(" ")[0],
+                        isFavourite: diary["isFavourite"],
+                        onDelete: () async {
                           await FirebaseFirestore.instance
-                          .collection("users")
-                          .doc(FirebaseAuth.instance.currentUser!.uid)
-                          .collection("diary")
-                          .doc(docId)
-                          .delete();
-                      },
-                      onFavoritePressed: () async {
-                        await FirebaseFirestore.instance
-                            .collection("users")
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .collection("diary")
-                            .doc(docId)
-                            .update({"isFavourite": !diary["isFavourite"]});
-                      },
-                    );
-                  },
-                );
-              },
+                              .collection("users")
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .collection("diary")
+                              .doc(docId)
+                              .delete();
+                        },
+                        onFavoritePressed: () async {
+                          await FirebaseFirestore.instance
+                              .collection("users")
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .collection("diary")
+                              .doc(docId)
+                              .update({"isFavourite": !diary["isFavourite"]});
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 180, 52, 194),
         child: const Icon(Icons.add, color: Colors.white),

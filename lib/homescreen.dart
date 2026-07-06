@@ -141,6 +141,19 @@ class _HomeScreeNState extends State<HomeScreeN> {
                               .doc(docId)
                               .update({"isFavourite": !diary["isFavourite"]});
                         },
+                        onEdit: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => AddDiaryScreen(
+                                docId: docId,
+                                title: diary["title"],
+                                description: diary["description"],
+                                mood: diary["mood"],
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   );

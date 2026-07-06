@@ -3,7 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AddDiaryScreen extends StatefulWidget {
-  const AddDiaryScreen({super.key});
+  final String? mood;
+  final String? docId;
+  final String? title;
+  final String? description;
+  const AddDiaryScreen({super.key, this.docId, this.title, this.description, this.mood});
 
   @override
   State<AddDiaryScreen> createState() => _AddDiaryScreenState();
@@ -15,6 +19,15 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
   final TextEditingController moodController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    titleController.text = widget.title ?? "";
+    descriptionController.text = widget.description ?? "";
+    moodController.text = widget.mood ?? "";
+  }
+
+  @override
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
@@ -24,17 +37,32 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
 
   Future<void> uploadTaskToDB() async {
     try {
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection("diary")
-          .add({
-            "title": titleController.text.trim(),
-            "description": descriptionController.text.trim(),
-            "mood": moodController.text.trim(),
-            "date": FieldValue.serverTimestamp(),
-            "isFavourite": false,
-          });
+      if (widget.docId == null) {
+        // Add new diary
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("diary")
+            .add({
+              "title": titleController.text.trim(),
+              "description": descriptionController.text.trim(),
+              "mood": moodController.text.trim(),
+              "date": FieldValue.serverTimestamp(),
+              "isFavourite": false,
+            });
+      } else {
+        // Update existing diary
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("diary")
+            .doc(widget.docId)
+            .update({
+              "title": titleController.text.trim(),
+              "description": descriptionController.text.trim(),
+              "mood": moodController.text.trim(),
+            });
+      }
 
       print("Saved Successfully");
     } catch (e) {
@@ -167,8 +195,8 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 15),
                   ),
 
-                  child: const Text(
-                    "Save Entry",
+                  child:  Text(
+                    widget.docId == null? "Save Entry" : "Update",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
@@ -176,7 +204,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
             ],
           ),
         ),
-      ),  
+      ),
     );
   }
 }
@@ -190,6 +218,7 @@ class DiaryCard extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onFavoritePressed;
   final VoidCallback? onDelete;
+  final VoidCallback? onEdit;
 
   const DiaryCard({
     super.key,
@@ -201,6 +230,7 @@ class DiaryCard extends StatelessWidget {
     this.onTap,
     this.onFavoritePressed,
     this.onDelete,
+    this.onEdit,
   });
 
   @override
@@ -266,6 +296,16 @@ class DiaryCard extends StatelessWidget {
                         color: Color.fromARGB(255, 0, 0, 0),
                       ),
                       onPressed: onDelete,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.edit,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                      onPressed: onEdit,
                     ),
                   ),
                 ],

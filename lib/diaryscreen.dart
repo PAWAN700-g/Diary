@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mydear_diary/services/gemini_services.dart';
+import 'package:mydear_diary/services/groq_services.dart';
 
 class AddDiaryScreen extends StatefulWidget {
   final String? mood;
@@ -42,18 +43,11 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
     super.dispose();
   }
 
-  Future<void> generateTitle() async {
-    if (descriptionController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please write description first")),
-      );
-      return;
-    }
+  final GroqService groqService = GroqService();
 
+  Future<void> generateDiaryTitle() async {
     try {
-      final title = await geminiService.generateTitle(
-        descriptionController.text.trim(),
-      );
+      final title = await groqService.generateTitle(descriptionController.text);
 
       setState(() {
         titleController.text = title;
@@ -187,7 +181,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                     const SizedBox(height: 10),
 
                     ElevatedButton.icon(
-                      onPressed: generateTitle,
+                      onPressed: generateDiaryTitle,
                       icon: const Icon(Icons.auto_awesome),
                       label: const Text("Generate Title"),
                     ),

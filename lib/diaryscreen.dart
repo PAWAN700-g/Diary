@@ -1,13 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mydear_diary/services/gemini_services.dart';
 
 class AddDiaryScreen extends StatefulWidget {
   final String? mood;
   final String? docId;
   final String? title;
   final String? description;
-  const AddDiaryScreen({super.key, this.docId, this.title, this.description, this.mood});
+  const AddDiaryScreen({
+    super.key,
+    this.docId,
+    this.title,
+    this.description,
+    this.mood,
+  });
 
   @override
   State<AddDiaryScreen> createState() => _AddDiaryScreenState();
@@ -17,7 +24,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController moodController = TextEditingController();
-
+  final GeminiService geminiService = GeminiService();
   @override
   void initState() {
     super.initState();
@@ -33,6 +40,29 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
     descriptionController.dispose();
     moodController.dispose();
     super.dispose();
+  }
+
+  Future<void> generateTitle() async {
+    if (descriptionController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please write description first")),
+      );
+      return;
+    }
+
+    try {
+      final title = await geminiService.generateTitle(
+        descriptionController.text.trim(),
+      );
+
+      setState(() {
+        titleController.text = title;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 
   Future<void> uploadTaskToDB() async {
@@ -140,16 +170,28 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
               const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: titleController,
-                  decoration: InputDecoration(
-                    labelText: 'Title',
-                    hintText: 'add title to your memory',
-                    prefixIcon: Icon(Icons.title),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: titleController,
+                      decoration: InputDecoration(
+                        labelText: "Title",
+                        hintText: "Add title to your memory",
+                        prefixIcon: const Icon(Icons.title),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                     ),
-                  ),
+
+                    const SizedBox(height: 10),
+
+                    ElevatedButton.icon(
+                      onPressed: generateTitle,
+                      icon: const Icon(Icons.auto_awesome),
+                      label: const Text("Generate Title"),
+                    ),
+                  ],
                 ),
               ),
 
@@ -195,8 +237,8 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 15),
                   ),
 
-                  child:  Text(
-                    widget.docId == null? "Save Entry" : "Update",
+                  child: Text(
+                    widget.docId == null ? "Save Entry" : "Update",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),

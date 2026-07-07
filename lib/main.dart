@@ -8,17 +8,16 @@ import 'package:mydear_diary/homescreen.dart';
 import 'package:mydear_diary/login_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-Future<void> main2() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
-}
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

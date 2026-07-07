@@ -6,7 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:mydear_diary/firebase_options.dart';
 import 'package:mydear_diary/homescreen.dart';
 import 'package:mydear_diary/login_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+Future<void> main2() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: ".env");
+
+  runApp(const MyApp());
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

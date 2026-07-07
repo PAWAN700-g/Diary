@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class GroqService {
-  static const String apiKey =
-      String.fromEnvironment('GROQ_API_KEY', defaultValue: '');
-
+  final String apiKey = dotenv.env['GROQ_API_KEY'] ?? '';
   Future<String> generateTitle(String description) async {
     if (apiKey.isEmpty) {
       throw Exception(
-          "Groq API key not found. Pass it using --dart-define=GROQ_API_KEY=...");
+        "Groq API key not found. Pass it using --dart-define=GROQ_API_KEY=...",
+      );
+      // ...
     }
 
     final response = await http.post(
@@ -23,14 +24,11 @@ class GroqService {
           {
             "role": "system",
             "content":
-                "Generate a short diary title (maximum 5 words). Return only the title."
+                "Generate a short diary title (maximum 5 words). Return only the title.",
           },
-          {
-            "role": "user",
-            "content": description
-          }
+          {"role": "user", "content": description},
         ],
-        "temperature": 0.7
+        "temperature": 0.7,
       }),
     );
 

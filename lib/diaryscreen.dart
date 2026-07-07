@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mydear_diary/services/gemini_services.dart';
+
 import 'package:mydear_diary/services/groq_services.dart';
 
 class AddDiaryScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _AddDiaryScreenState extends State<AddDiaryScreen> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController moodController = TextEditingController();
-  final GeminiService geminiService = GeminiService();
+  
   @override
   void initState() {
     super.initState();
